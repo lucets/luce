@@ -1,0 +1,35 @@
+{
+  "name": "@lucets/luce",
+  "version": "0.1.0",
+  "description": "Versatile framework for WebSockets",
+  "main": "./dist/index.js",
+  "author": "Michiel van der Velde <michiel@michielvdvelde.nl>",
+  "homepage": "http://github.com/lucets/luce",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucets/luce.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "keywords": [
+    "ws",
+    "websocket",
+    "server",
+    "http",
+    "upgrade",
+    "json"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/http-errors": "^1.8.0",
+    "@types/ws": "^7.4.0"
+  },
+  "dependencies": {
+    "http-errors": "^1.8.0",
+    "ws": "^7.4.3"
+  }
+}
