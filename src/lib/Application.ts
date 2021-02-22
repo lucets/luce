@@ -156,8 +156,7 @@ export default class Application<
 
       return new Promise<void>((resolve, reject) => {
         socket.send(JSON.stringify(message), err => {
-          if (err)
-            return reject(err)
+          if (err) return reject(err)
           resolve()
         })
       })
