@@ -24,7 +24,8 @@ export interface DefaultContext<TMessage, TState> {
   raw: Socket,
   state: TState,
   socket?: WebSocket,
-  send?: (message: TMessage) => Promise<void>
+  send?: (message: TMessage) => Promise<void>,
+  close?: (code: number, reason?: string) => Promise<void>
 }
 
 export { default } from './lib/Application'

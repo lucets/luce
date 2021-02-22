@@ -112,6 +112,7 @@ export default class Application<
 
         delete ctx.socket
         delete ctx.send
+        delete ctx.close
       }
 
       // Add event listeners
@@ -148,17 +149,27 @@ export default class Application<
     })
 
     // Define the send function on the context
-    ctx.send = async message => {
+    ctx.send = async function send (message) {
       if (socket.readyState !== WebSocket.OPEN) {
         throw new Error('Socket not open')
       }
 
       return new Promise<void>((resolve, reject) => {
         socket.send(JSON.stringify(message), err => {
-          if (err) return reject(err)
+          if (err)
+            return reject(err)
           resolve()
         })
       })
+    }
+
+    // Define the close function on the context
+    ctx.close = async function close (code: number, reason?: string) {
+      if (socket.readyState !== WebSocket.OPEN) {
+        throw new Error('Socket not open')
+      }
+
+      ctx.socket.close(code, reason)
     }
 
     // Run upgrade post hooks
