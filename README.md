@@ -5,22 +5,22 @@ Luce is a versatile WebSocket framework for node.js.
 It is the spiritual successor to [illustriws](https://github.com/MichielvdVelde/illustriws)
 and [signal-fire](https://github.com/MichielvdVelde/signal-fire).
 
-> Luce is a **work in progress**.
-
-## Install
-
-Install luce through npm:
-
-```
-npm i @lucets/luce
-```
-
 ## Features
 
 * Based around asynchronous hooks analogous to middelware in e.g.
 [koa](https://github.com/koajs/koa)
 * Run hooks before and after the HTTP request upgrades to WebSocket
 * Run hooks on each received message
+
+## Install
+
+> Luce is a **work in progress**.
+
+Install luce through npm:
+
+```
+npm i @lucets/luce
+```
 
 ## Documentation
 
