@@ -5,7 +5,7 @@ import { Socket } from 'net'
 import { IncomingMessage } from 'http'
 
 import WebSocket, { Server } from 'ws'
-import createHttpError, { HttpError } from 'http-errors'
+import createHttpError from 'http-errors'
 
 import {
   DefaultContext,
