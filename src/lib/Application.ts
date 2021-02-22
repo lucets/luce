@@ -122,7 +122,7 @@ export default class Application<
     }
   }
 
-  public async handleUpgrade (ctx: DefaultContext<TMessage, TState>, head: Buffer) {
+  private async handleUpgrade (ctx: DefaultContext<TMessage, TState>, head: Buffer) {
     // Run upgrade pre hooks
     try {
       await this.#upgradePreHooks.run(ctx)
@@ -191,7 +191,7 @@ export default class Application<
     }
   }
 
-  public async handleMessage (message: string, ctx: DefaultContext<TMessage, TState>) {
+  private async handleMessage (message: string, ctx: DefaultContext<TMessage, TState>) {
     let msg: TMessage
 
     // Parse message
