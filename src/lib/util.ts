@@ -25,3 +25,25 @@ export function toHttpResponse (
     '\r\n\r\n' +
     message
 }
+
+/** WebSocket close status codes */
+export const WS_CODES: {
+  [key: number]: string
+} = {
+  4400: 'Bad Request',
+  4401: 'Unauthorized',
+  4404: 'Not Found',
+  4500: 'Internal Server Error'
+}
+
+/** Represents a WebSocket error */
+export class WebSocketError extends Error {
+  public readonly code: number
+  public readonly expose: boolean
+
+  public constructor (code = 4500, message = WS_CODES[code], expose?: boolean) {
+    super(message ?? 'Unknown error')
+    this.code = code
+    this.expose = expose ?? code < 4500
+  }
+}

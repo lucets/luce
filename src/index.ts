@@ -27,25 +27,19 @@ export interface DefaultContext<TMessage, TState> {
   send?: (message: TMessage) => Promise<void>
 }
 
-export const CODES: {
-  [key: number]: string
-} = {
-  4400: 'Bad Request',
-  4401: 'Unauthorized',
-  4404: 'Not Found',
-  4500: 'Internal Server Error'
-}
-
-/** Represents a WebSocket error */
-export class WebSocketError extends Error {
-  public readonly code: number
-  public readonly expose: boolean
-
-  public constructor (code = 4500, message = CODES[code], expose?: boolean) {
-    super(message ?? 'Unknown error')
-    this.code = code
-    this.expose = expose ?? code < 4500
-  }
-}
-
 export { default } from './lib/Application'
+
+export {
+  default as MessageHooks,
+  MessageHook
+} from './lib/MessageHooks'
+
+export {
+  default as UpgradeHooks,
+  UpgradeHook
+} from './lib/UpgradeHooks'
+
+export {
+  WS_CODES,
+  WebSocketError
+} from './lib/util'
