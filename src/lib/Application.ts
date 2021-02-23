@@ -5,7 +5,7 @@ import { Socket } from 'net'
 import { IncomingMessage } from 'http'
 
 import WebSocket, { Server } from 'ws'
-import createHttpError from 'http-errors'
+import createHttpError, { isHttpError } from 'http-errors'
 import UpgradeHooks, { UpgradeHook } from '@lucets/upgrade-hooks'
 import MessageHooks, { MessageHook } from '@lucets/message-hooks'
 
@@ -128,7 +128,7 @@ export default class Application<
       await this.#upgradePreHooks.run(ctx)
     } catch (e) {
       // Error running pre hooks
-      if (!e.statusCode) {
+      if (!isHttpError(e)) {
         e = createHttpError(500, e)
       }
 
