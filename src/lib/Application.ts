@@ -6,6 +6,8 @@ import { IncomingMessage } from 'http'
 
 import WebSocket, { Server } from 'ws'
 import createHttpError from 'http-errors'
+import UpgradeHooks, { UpgradeHook } from '@lucets/upgrade-hooks'
+import MessageHooks, { MessageHook } from '@lucets/message-hooks'
 
 import {
   DefaultContext,
@@ -14,8 +16,6 @@ import {
   WebSocketError
 } from '../index'
 
-import UpgradeHooks, { UpgradeHook } from './UpgradeHooks'
-import MessageHooks, { MessageHook } from './MessageHooks'
 import { toHttpResponse } from './util'
 
 export default class Application<

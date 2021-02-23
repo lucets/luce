@@ -33,12 +33,12 @@ export { default } from './lib/Application'
 export {
   default as MessageHooks,
   MessageHook
-} from './lib/MessageHooks'
+} from '@lucets/message-hooks'
 
 export {
   default as UpgradeHooks,
   UpgradeHook
-} from './lib/UpgradeHooks'
+} from '@lucets/upgrade-hooks'
 
 export {
   WS_CODES,
