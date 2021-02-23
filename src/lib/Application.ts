@@ -63,7 +63,7 @@ export default class Application<
 
   /** Upgrade method. */
   public onUpgrade () {
-    return async (req: IncomingMessage, raw: Socket, head: Buffer) => {
+    return async function onUpgrade (req: IncomingMessage, raw: Socket, head: Buffer) {
       // Create a new context
       const ctx = this.createContext(req, raw)
 
