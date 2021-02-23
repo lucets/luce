@@ -1,5 +1,7 @@
 'use strict'
 
+import { noopAsync } from './util'
+
 export interface MessageHook<TMessage, TContext> {
   (message: TMessage, ctx: TContext, next: () => Promise<void>): Promise<void>
 }
@@ -33,6 +35,6 @@ export default class MessageHooks<TMessage, TContext> extends Set<MessageHook<TM
       return
     }
 
-    return MessageHooks.compose(...this.values())(message, ctx, async () => {})
+    return MessageHooks.compose(...this.values())(message, ctx, noopAsync)
   }
 }

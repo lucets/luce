@@ -1,5 +1,7 @@
 'use strict'
 
+import { noopAsync } from './util'
+
 export interface UpgradeHook<TContext> {
   (ctx: TContext, next: () => Promise<void>): Promise<void>
 }
@@ -33,6 +35,6 @@ export default class UpgradeHooks<TContext> extends Set<UpgradeHook<TContext>> {
       return
     }
 
-    return UpgradeHooks.compose(...this.values())(ctx, async () => {})
+    return UpgradeHooks.compose(...this.values())(ctx, noopAsync)
   }
 }

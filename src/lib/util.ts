@@ -2,6 +2,8 @@
 
 import { STATUS_CODES } from 'http'
 
+export async function noopAsync () {}
+
 /** Create a HTTP response. */
 export function toHttpResponse (
   statusCode: number,
