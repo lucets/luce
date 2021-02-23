@@ -1,6 +1,6 @@
 {
   "name": "@lucets/luce",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Versatile framework for WebSockets",
   "main": "./dist/index.js",
   "author": "Michiel van der Velde <michiel@michielvdvelde.nl>",
