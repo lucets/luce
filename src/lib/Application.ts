@@ -72,9 +72,9 @@ export default class Application<
         await this.handleUpgrade(ctx, head)
       } catch (e) {
         // Emit error if it's a server error
-        if (e.statusCode && e.statusCode >= 500 && e.statusCode <= 599) {
+        if (e.statusCode >= 500 && e.statusCode <= 599) {
           this.emit('error', e, ctx)
-        } else if (e.code && e.code >= 4500 && e.code <= 4599) {
+        } else if (e.code >= 4500 && e.code <= 4599) {
           this.emit('error', e, ctx)
         }
 
