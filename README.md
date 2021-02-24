@@ -14,8 +14,6 @@ and [signal-fire](https://github.com/MichielvdVelde/signal-fire).
 
 ## Install
 
-> Luce is a **work in progress**.
-
 Install luce through npm:
 
 ```
@@ -24,8 +22,7 @@ npm i @lucets/luce
 
 ## Documentation
 
-Documentation is forthcoming.
-In the mean time the example will have to do.
+[Click here to view the documentation](https://lucets.github.io/luce/).
 
 ## Example
 
