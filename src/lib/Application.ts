@@ -183,7 +183,10 @@ export default class Application<
         throw new Error('Socket not open')
       }
 
-      ctx.socket.close(code, reason)
+      return new Promise<void>(resolve => {
+        socket.once('close', resolve)
+        ctx.socket.close(code, reason)
+      })
     }
 
     // Run upgrade post hooks
