@@ -4,7 +4,7 @@ import { EventEmitter } from 'events'
 import { Socket } from 'net'
 import { IncomingMessage } from 'http'
 
-import WebSocket, { Server } from 'ws'
+import WebSocket, { Server, ServerOptions } from 'ws'
 import createHttpError, { isHttpError } from 'http-errors'
 import UpgradeHooks, { UpgradeHook } from '@lucets/upgrade-hooks'
 import MessageHooks, { MessageHook } from '@lucets/message-hooks'
@@ -18,14 +18,29 @@ import {
 
 import { toHttpResponse } from './util'
 
+export interface Options {
+  handleProtocols?: (protocol: string[]) => string
+}
+
 export default class Application<
   TMessage extends DefaultMessage = DefaultMessage,
   TState extends DefaultState = DefaultState
 > extends EventEmitter {
-  #server: Server = new Server({ noServer: true })
+  #server: Server
   #upgradePreHooks: UpgradeHooks<DefaultContext<TMessage, TState>> = new UpgradeHooks()
   #upgradePostHooks: UpgradeHooks<DefaultContext<TMessage, TState>> = new UpgradeHooks()
   #messageHooks: MessageHooks<TMessage, DefaultContext<TMessage, TState>> = new MessageHooks()
+
+  public constructor (opts: Options = {}) {
+    super()
+
+    const serverOpts: ServerOptions = {
+      ...opts,
+      noServer: true
+    }
+
+    this.#server = new Server(serverOpts)
+  }
 
   /**
    * Use one or more upgrade hooks.
