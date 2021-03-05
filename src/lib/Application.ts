@@ -34,12 +34,10 @@ export default class Application<
   public constructor (opts: Options = {}) {
     super()
 
-    const serverOpts: ServerOptions = {
+    this.#server = new Server({
       ...opts,
       noServer: true
-    }
-
-    this.#server = new Server(serverOpts)
+    })
   }
 
   /**
