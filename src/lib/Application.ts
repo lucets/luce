@@ -18,8 +18,9 @@ import {
 
 import { toHttpResponse } from './util'
 
-export interface Options {
-  handleProtocols?: (protocol: string[]) => string
+export interface Options<TDefaultState = any> {
+  handleProtocols?: (protocol: string[]) => string,
+  defaultState?: TDefaultState
 }
 
 export default class Application<
@@ -27,9 +28,11 @@ export default class Application<
   TState extends DefaultState = DefaultState
 > extends EventEmitter {
   #server: Server
+  #contexts: Set<DefaultContext<TMessage, TState>>
   #upgradePreHooks: UpgradeHooks<DefaultContext<TMessage, TState>> = new UpgradeHooks()
   #upgradePostHooks: UpgradeHooks<DefaultContext<TMessage, TState>> = new UpgradeHooks()
   #messageHooks: MessageHooks<TMessage, DefaultContext<TMessage, TState>> = new MessageHooks()
+  #defaultState: TState
 
   public constructor (opts: Options = {}) {
     super()
@@ -38,6 +41,12 @@ export default class Application<
       ...opts,
       noServer: true
     })
+
+    this.#defaultState = opts.defaultState ?? {}
+  }
+
+  public get contexts (): DefaultContext<TMessage, TState>[] {
+    return [ ...this.#contexts.values() ]
   }
 
   /**
@@ -78,7 +87,7 @@ export default class Application<
   public onUpgrade () {
     return async (req: IncomingMessage, raw: Socket, head: Buffer) => {
       // Create a new context
-      const ctx = this.createContext(req, raw)
+      const ctx = this.createContext(req, raw, this.#defaultState)
 
       // Handle the upgrade to WebSocket
       try {
@@ -204,6 +213,14 @@ export default class Application<
 
       throw e
     }
+
+    ctx.socket.once('close', () => {
+      this.#contexts.delete(ctx)
+      this.emit('context-removed', ctx)
+    })
+
+    this.#contexts.add(ctx)
+    this.emit('context-added', ctx)
   }
 
   private async handleMessage (message: string, ctx: DefaultContext<TMessage, TState>) {
@@ -231,12 +248,12 @@ export default class Application<
     }
   }
 
-  private createContext (req: IncomingMessage, raw: Socket): DefaultContext<TMessage, TState> {
+  private createContext (req: IncomingMessage, raw: Socket, state: TState): DefaultContext<TMessage, TState> {
     return {
       app: this,
       req,
       raw,
-      state: <any>{}
+      state
     }
   }
 }
