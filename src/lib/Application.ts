@@ -28,7 +28,6 @@ export default class Application<
   TState extends DefaultState = DefaultState
 > extends EventEmitter {
   #server: Server
-  #contexts: Set<DefaultContext<TMessage, TState>>
   #upgradePreHooks: UpgradeHooks<DefaultContext<TMessage, TState>> = new UpgradeHooks()
   #upgradePostHooks: UpgradeHooks<DefaultContext<TMessage, TState>> = new UpgradeHooks()
   #messageHooks: MessageHooks<TMessage, DefaultContext<TMessage, TState>> = new MessageHooks()
@@ -43,10 +42,6 @@ export default class Application<
     })
 
     this.#defaultState = opts.defaultState ?? {}
-  }
-
-  public get contexts (): DefaultContext<TMessage, TState>[] {
-    return [ ...this.#contexts.values() ]
   }
 
   /**
@@ -213,14 +208,6 @@ export default class Application<
 
       throw e
     }
-
-    ctx.socket.once('close', () => {
-      this.#contexts.delete(ctx)
-      this.emit('context-removed', ctx)
-    })
-
-    this.#contexts.add(ctx)
-    this.emit('context-added', ctx)
   }
 
   private async handleMessage (message: string, ctx: DefaultContext<TMessage, TState>) {
