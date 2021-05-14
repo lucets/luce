@@ -26,12 +26,12 @@
   "license": "MIT",
   "devDependencies": {
     "@types/http-errors": "^1.8.0",
-    "@types/ws": "^7.4.0"
+    "@types/ws": "^7.4.4"
   },
   "dependencies": {
     "@lucets/message-hooks": "^0.1.0",
     "@lucets/upgrade-hooks": "^0.1.0",
     "http-errors": "^1.8.0",
-    "ws": "^7.4.3"
+    "ws": "^7.4.5"
   }
 }
