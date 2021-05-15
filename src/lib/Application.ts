@@ -98,7 +98,7 @@ export default class Application<
         return
       }
 
-      const { socket } = ctx
+      const socket = ctx.socket as WebSocket
 
       // Handle incoming messages
       const onMessage = async (message: string) => {
@@ -106,7 +106,7 @@ export default class Application<
           await this.handleMessage(message, ctx)
         } catch (e) {
           // Close the WebSocket connection
-          if (socket.readyState === WebSocket.OPEN) {
+          if (socket && socket.readyState === WebSocket.OPEN) {
             socket.close(e.code, e.message)
           }
 
@@ -187,7 +187,7 @@ export default class Application<
 
       return new Promise<void>(resolve => {
         socket.once('close', resolve)
-        ctx.socket.close(code, reason)
+        ctx.socket?.close(code, reason)
       })
     }
 

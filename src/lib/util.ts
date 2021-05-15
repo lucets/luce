@@ -11,7 +11,7 @@ export function toHttpResponse (
   expose = statusCode < 500,
   headers: { [key: string]: any } = {}
 ): string {
-  message = expose ? message : STATUS_CODES[statusCode]
+  message = expose ? message : STATUS_CODES[statusCode] as string
 
   headers = {
     'Content-Type': 'text/plain',
