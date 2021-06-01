@@ -37,7 +37,7 @@ import { Server } from 'http'
 import Application, { DefaultMessage, DefaultState } from './index'
 import { nanoid } from 'nanoid/async'
 
-import createHttpError from 'http-errors'
+import { NotFound } from 'http-errors'
 
 /** Custom message interface */
 export interface MyMessage extends DefaultMessage {
@@ -75,7 +75,7 @@ const server = new Server((req, res) => {
 app.useUpgrade('pre', async (ctx, next) => {
   // Check if the request path is valid
   if (!ctx.req.url.startsWith('/socket')) {
-    throw createHttpError(404)
+    throw new NotFound()
   }
 
   return next()
