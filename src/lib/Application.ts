@@ -82,7 +82,7 @@ export default class Application<
   public onUpgrade () {
     return async (req: IncomingMessage, raw: Socket, head: Buffer) => {
       // Create a new context
-      const ctx = this.createContext(req, raw, this.#defaultState)
+      const ctx = this.createContext(req, raw, {...this.#defaultState})
 
       // Handle the upgrade to WebSocket
       try {
